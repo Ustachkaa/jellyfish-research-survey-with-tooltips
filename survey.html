@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jellyfish Research Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Video Background -->
+<div class="video-container">
+    <video autoplay muted id="background-video">
+        <source id="video-source" src="VideoBackground/M2U00084.mp4" type="video/mp4">
+    </video>
+</div>
+
+<!-- Survey Box -->
+<div class="survey-container">
+    <h2>Jellyfish Research Application</h2>
+
+    <form>
+        <!-- Full Name -->
+        <label class="tooltip-container">
+            Full Name:
+            <span class="tooltip">Enter your full legal name.</span>
+            <input type="text" name="full-name" placeholder="John Doe">
+        </label>
+
+        <!-- Email -->
+        <label class="tooltip-container">
+            Email:
+            <span class="tooltip">Use an academic or professional email.</span>
+            <input type="email" name="email" placeholder="example@university.edu">
+        </label>
+
+        <!-- Age -->
+        <label class="tooltip-container">
+            Age:
+            <span class="tooltip">Select your age range.</span>
+            <select name="age">
+                <option value="under_18">Under 18</option>
+                <option value="18-24">18-24</option>
+                <option value="25-34">25-34</option>
+                <option value="35-44">35-44</option>
+                <option value="45+">45+</option>
+            </select>
+        </label>
+
+        <!-- Education Level -->
+        <label class="tooltip-container">
+            Highest Level of Education:
+            <span class="tooltip">Select your highest completed education level.</span>
+            <select name="education">
+                <option value="high_school">High School</option>
+                <option value="bachelor">Bachelor’s Degree</option>
+                <option value="master">Master’s Degree</option>
+                <option value="phd">PhD or Higher</option>
+            </select>
+        </label>
+
+        <!-- Research Experience -->
+        <label class="tooltip-container">
+            Research Experience:
+            <span class="tooltip">Select your research background.</span>
+            <select name="experience">
+                <option value="none">No experience</option>
+                <option value="undergraduate">Undergraduate research</option>
+                <option value="graduate">Graduate research</option>
+                <option value="professional">Professional research</option>
+            </select>
+        </label>
+
+        <!-- Statement of Interest -->
+        <label class="tooltip-container">
+            Why are you interested in this research? (Max 255 characters)
+            <span class="tooltip">Briefly explain your motivation for joining.</span>
+            <textarea name="statement" placeholder="I am fascinated by jellyfish because..." maxlength="255" id="statement"></textarea>
+            <span id="charCount">255 characters remaining</span>
+        </label>
+
+        <!-- Preferred Research Method -->
+        <label class="tooltip-container">
+            Preferred Research Method:
+            <span class="tooltip">Choose one method you are most comfortable with.</span>
+            <select name="method">
+                <option value="lab">Laboratory Studies</option>
+                <option value="field">Field Research</option>
+                <option value="data">Data Analysis</option>
+            </select>
+        </label>
+
+        <!-- Availability -->
+        <label class="tooltip-container">
+            Availability:
+            <span class="tooltip">Select the date range you are available.</span>
+            <input type="date" name="availability">
+        </label>
+
+        <!-- Submit Button -->
+        <button type="submit">Apply</button>
+    </form>
+</div>
+
+<script>
+
+    const videoSources = [
+        "VideoBackground/M2U00084.mp4",
+        "VideoBackground/M2U00085.mp4",
+        "VideoBackground/M2U00086.mp4"
+    ];
+
+    let videoIndex = 0;
+    const video = document.getElementById("background-video");
+    const source = document.getElementById("video-source");
+
+    // Video loop
+    video.addEventListener("ended", function () {
+        videoIndex = (videoIndex + 1) % videoSources.length; // Cycle through videos
+        source.src = videoSources[videoIndex]; // Set the next video source
+        video.load(); // Reload the video
+        video.play(); // Play the next video
+    });
+
+
+    function updateCharCount() {
+        const maxLength = 255;
+        const currentLength = document.getElementById('statement').value.length;
+        const charCount = maxLength - currentLength;
+        document.getElementById('charCount').textContent = `${charCount} characters remaining`;
+    }
+
+    // Event listener for textarea to update character count
+    document.getElementById('statement').addEventListener('input', updateCharCount);
+</script>
+</body>
+</html>
